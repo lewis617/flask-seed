@@ -16,7 +16,7 @@ npm i -g less
 python app.py runserver -h 0.0.0.0 -p 8080
 ```
 
-生产环境下，需要将环境变量 ENV_MODE 设为 PROD，来禁用 DEBUG 模式。
+生产环境下，需要将环境变量 `ENV_MODE` 设为 `PROD`，来禁用 DEBUG 模式。
 
 ### 离线压缩
 
