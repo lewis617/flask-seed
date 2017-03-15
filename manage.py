@@ -1,22 +1,12 @@
-from flask import Flask, render_template
-from flask_script import Manager
-from jac.contrib.flask import JAC, get_template_dirs
+#!/usr/bin/env python
 import os
 import sys
+from app import create_app
+from flask_script import Manager
+from jac.contrib.flask import get_template_dirs
 import shutil
 
-app = Flask(__name__)
-
-# config
-app.debug = os.getenv('ENV_MODE', 'DEV') != 'PROD'
-
-# jac
-app.config['COMPRESSOR_DEBUG'] = app.debug
-app.config['COMPRESSOR_OUTPUT_DIR'] = '%s/static/dist' % sys.path[0]
-app.config['COMPRESSOR_STATIC_PREFIX'] = '/static/dist'
-jac = JAC(app)
-
-# flask script
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 
 
@@ -40,11 +30,6 @@ def jac():
     compressor.offline_compress(env, template_dirs)
 
     print 'Finished.'
-
-
-@app.route('/')
-def hello_world():
-    return render_template('home/index.html')
 
 
 if __name__ == '__main__':
